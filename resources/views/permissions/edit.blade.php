@@ -6,16 +6,14 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header">
-                    <h4>Editar Usuário: {{ $data->name }}</h4>
+                    <h4>Editando Permissão: {{ $data->name }}</h4>
                 </div>
-
                 <div class="card-body">
                     @include('includes.alert')
 
-                    {!!Form::open()->fill($data)->method('put')->route('users.update', [$data->id])!!}
-                        @include('users._form')
+                    {!!Form::open()->fill($data)->method('put')->route('permissions.update', [$data->id])!!}
+                        @include('permissions._form')
                     {!!Form::close()!!}
-                    
                 </div>
             </div>
         </div>
