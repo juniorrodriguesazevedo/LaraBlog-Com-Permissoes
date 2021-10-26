@@ -11,6 +11,13 @@ use App\Http\Requests\UserStoreUpdate;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:users_create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:users_edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:users_view', ['only' => ['show', 'index']]);
+        $this->middleware('permission:users_delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::with('roles')->paginate(10);
+        $data = User::with('roles')->latest()->paginate(10);
 
         return view('users.index', compact('data'));
     }
