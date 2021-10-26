@@ -20,7 +20,7 @@ class PermissionSeeder extends Seeder
             Permission::firstOrCreate([
                 'name' => $permission['name'],
                 'description' => $permission['description']
-            ])->roles()->sync(1);
+            ])->syncRoles('admin');
         }
     }
 }
