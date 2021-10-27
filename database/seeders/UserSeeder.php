@@ -25,6 +25,6 @@ class UserSeeder extends Seeder
             'name' => 'user',
             'email' => 'user@gmail.com',
             'password' => Hash::make('123456789o')
-        ])->assignRole('user');
+        ])->assignRole('user')->givePermissionTo('post_view');
     }
 }
