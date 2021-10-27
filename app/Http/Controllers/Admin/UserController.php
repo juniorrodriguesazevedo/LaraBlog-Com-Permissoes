@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Permission;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserStoreUpdate;
@@ -26,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::role('user')->latest()->paginate(10);
+        $data = User::with('roles')->latest()->paginate(10);
 
         return view('users.index', compact('data'));
     }
@@ -68,9 +67,9 @@ class UserController extends Controller
     public function show($id)
     {
         $data = User::findOrFail($id);
-        $permissions = Permission::all();
 
-        return view('users.show', compact('data', 'permissions'));
+        return view('users.show', compact('data'));
+        
     }
 
     /**
@@ -123,15 +122,5 @@ class UserController extends Controller
 
         return redirect()->route('users.index')
             ->with('success', 'Usuário deletado com sucesso!');
-    }
-
-    public function storePermissionsUser(Request $request, $id)
-    {
-        $data = User::findOrFail($id);
-
-        $data->syncPermissions($request->permissions);
-
-        return redirect()->route('users.index')
-            ->with('success', 'Permissões do usuário atualizado');
     }
 }

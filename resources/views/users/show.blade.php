@@ -14,15 +14,12 @@
                     <b>Email: </b> {{ $data->email }} <br>
                     <b>Tipo: </b> {{  $data->getRoleNames() == '["admin"]' ? 'Administrador' : 'Usuário'}} <br> 
                     <b>Permissões: </b> 
-                    
-                    @foreach ($data->getAllPermissions() as $permission)
-                        <li>
-                            {{ $permission['name'] }}
-                        </li> 
-                    @endforeach
-                    
-                    <br>
-            
+                    <ul>
+                        @foreach ($data->getAllPermissions() as $permission)
+                            <li>{{ $permission['name'] }}</li>
+                        @endforeach
+                    </ul>
+
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar com grupos de botões">
                         <div class="btn-group mr-2" role="group" aria-label="Primeiro grupo">
                             {!!Form::open()->method('delete')->route('users.destroy', [$data->id])!!}

@@ -29,7 +29,8 @@
                     <a class="navbar-brand dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administração</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
-                        <a class="dropdown-item" href="{{ route('permissions.index') }}">Permissões</a>                      
+                        <a class="dropdown-item" href="{{ route('permissions.index') }}">Permissões</a>
+                      
                     </div>
                 </div>    
             
