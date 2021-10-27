@@ -8,7 +8,7 @@
     <div class="col-md-6">
         {!!Form::file('image', 'Imagem')->required()!!}
     </div>
-    <div class="col-6">
+    <div class="col-12">
         {!!Form::textarea('body', 'Corpo da Notícia')->required()!!}
     </div>
     <div class="col">

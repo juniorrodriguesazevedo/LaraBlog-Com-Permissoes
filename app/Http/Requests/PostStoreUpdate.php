@@ -28,7 +28,6 @@ class PostStoreUpdate extends FormRequest
             'auxiliary_title' => ['required', 'string', 'min:3', 'max:255'],
             'image' => ['required', 'image'],
             'body' => ['required', 'string', 'min:10', 'max:5000'],
-            'user_id' => ['required', 'exists:users,id']
         ];
     }
 }

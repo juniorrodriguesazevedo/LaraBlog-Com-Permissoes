@@ -11,7 +11,7 @@
                 <div class="card-body">
                     @include('includes.alert')
 
-                    {!!Form::open()->method('post')->route('posts.store')!!}
+                    {!!Form::open()->method('post')->multipart()->route('posts.store')!!}
                         @include('posts._form')
                     {!!Form::close()!!}
                 </div>

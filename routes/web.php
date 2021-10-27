@@ -9,8 +9,10 @@ use App\Http\Controllers\Admin\PermissionController;
 
 Route::group(['middleware' => 'auth'], function() {
 
-    Route::post('users/store/permissions/{user}', [UserController::class, 'storePermissionsUser'])->name('users.store.permissions');
-    
+    Route::get('/', function() {
+        return redirect()->route('posts.index');
+    })->name('home');
+
     Route::resources([
         'users' => UserController::class,
         'permissions' => PermissionController::class,
@@ -18,10 +20,4 @@ Route::group(['middleware' => 'auth'], function() {
     ]);
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
