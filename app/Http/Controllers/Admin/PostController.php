@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostStoreUpdate;
-use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -47,17 +45,7 @@ class PostController extends Controller
      */
     public function store(PostStoreUpdate $request)
     {
-        $data = $request->all();
-        $data['user_id'] = Auth::id();
-
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            $imagePath = $request->file('image')->store('public');
-
-            $data['image'] = $imagePath;
-        }
-
-        Post::create($data);
+        Post::create($request->all());
 
         return redirect()->route('posts.index')
             ->with('success', 'Post criado com sucesso!');
@@ -99,20 +87,7 @@ class PostController extends Controller
     public function update(PostStoreUpdate $request, $id)
     {
         $post = Post::findOrFail($id);
-        $data = $request->all();
-
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            if ($post->image && Storage::exists($post->image)) {
-                Storage::delete($post->image);
-            }
-
-            $imagePath = $request->file('image')->store('public');
-
-            $data['image'] = $imagePath;
-        }
-
-        $post->update($data);
+        $post->update($request->all());
 
         return redirect()->route('posts.index')
             ->with('success', 'Post atualizado com sucesso!');
@@ -127,11 +102,6 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-
-        if ($post->image && Storage::exists($post->image)) {
-            Storage::delete($post->image);
-        }
-
         $post->delete();
 
         return redirect()->route('posts.index')

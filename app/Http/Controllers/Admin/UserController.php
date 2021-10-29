@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Models\Permission;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserStoreUpdate;
 
 class UserController extends Controller
@@ -49,11 +46,7 @@ class UserController extends Controller
      */
     public function store(UserStoreUpdate $request)
     {
-        User::create([
-            'name' => Str::title($request->name),
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ])->assignRole($request->roles_id);
+        User::create($request->all())->assignRole($request->roles_id);
 
         return redirect()->route('users.index')
             ->with('success', 'Usuário criado com sucesso!');
@@ -97,11 +90,7 @@ class UserController extends Controller
     {
         $data = User::findOrFail($id);
         
-        $data->update([
-            'name' => Str::title($request->name),
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
+        $data->update($request->all());
 
         $data->syncRoles($request->roles_id);
         
@@ -123,15 +112,5 @@ class UserController extends Controller
 
         return redirect()->route('users.index')
             ->with('success', 'Usuário deletado com sucesso!');
-    }
-
-    public function storePermissionsUser(Request $request, $id)
-    {
-        $data = User::findOrFail($id);
-
-        $data->syncPermissions($request->permissions);
-
-        return redirect()->route('users.index')
-            ->with('success', 'Permissões do usuário atualizado');
     }
 }
