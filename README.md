@@ -12,7 +12,7 @@ Projeto feito em Laravel/Framework para fins de aprendizado e treinamento usando
 * Você precisará do PHP instalado em seu computador, [BAIXE AQUI](https://www.php.net/downloads). 
 * Na raiz do projeto use o comando `composer install`. 
 * No arquivo `.ENV` edite o campo `DB_CONNECTION` e coloque os dados do seu banco de dados.
-* Use o comando `php artisan migrate:refresh --seed` para fazer as migrações e propagar o banco.
+* Use o comando `php artisan migrate:fresh --seed` para fazer as migrações e propagar o banco.
 * Use o comando `php artisan storage:link` para criar um link simbólico para as imagens.
 * Use o comando `php artisan serve` para rodar em seu servidor.
 * Navegue para `http://127.0.0.1:8000/`. O aplicativo será carregado automaticamente.
